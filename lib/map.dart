@@ -29,9 +29,6 @@ class nMapPage extends StatefulWidget {
 }
 
 class nMap extends State<nMapPage> {
-  num changedWidth = 0;
-  num changedHeight = 0;
-
   latlonToNum(lat, lon, index) {
     var lat_rad = lat * (pi / 180);
     var n = pow(2, 16);
@@ -73,44 +70,12 @@ class nMap extends State<nMapPage> {
               print("point2: ${viewport.point2}");
               print("point3: ${viewport.point3}");
 
-              double xMin = viewport.point0.x;
-              double xMax = viewport.point0.x;
-              double yMin = viewport.point0.y;
-              double yMax = viewport.point0.y;
-              for (final Vector3 point in <Vector3>[
-                viewport.point1,
-                viewport.point2,
-                viewport.point3,
-              ]) {
-                if (point.x < xMin) {
-                  xMin = point.x;
-                } else if (point.x > xMax) {
-                  xMax = point.x;
-                }
-
-                if (point.y < yMin) {
-                  yMin = point.y;
-                } else if (point.y > yMax) {
-                  yMax = point.y;
-                }
-              }
-
-              final int firstRow = (yMin / 256).floor();
-              final int lastRow = (yMax / 256).ceil();
-              final int firstCol = (xMin / 256).floor();
-              final int lastCol = (xMax / 256).ceil();
-
-              print(firstRow);
-              print(lastRow);
-              print(firstCol);
-              print(lastCol);
-
               return SizedBox(
                   width: 1,
                   height: 1,
                   child: Stack(clipBehavior: Clip.none, children: [
-                    for (int column = firstCol; column < lastCol + 2; column++)
-                      for (int row = firstRow; row < lastRow + 1; row++)
+                    for (int column = 0; column < 5; column++)
+                      for (int row = 0; row < 5; row++)
                         Positioned(
                             left: (256 * (column - 2)).toDouble() +
                                 (((viewport.point2.x - viewport.point3.x) / 2) -
